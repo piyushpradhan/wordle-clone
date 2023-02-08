@@ -19,16 +19,6 @@ describe("compute guess", () => {
         ]);
     });
 
-    it('only does one match when two identical letters are present', () => {
-        expect(computeGuess("sweat", "sweet")).toEqual([
-            LetterState.MATCH,
-            LetterState.MATCH,
-            LetterState.MATCH,
-            LetterState.MISS,
-            LetterState.MATCH,
-        ]);
-    })
-
     it('works with all present', () => {
         expect(computeGuess("waste", "sweat")).toEqual([
             LetterState.PRESENT,
@@ -56,6 +46,36 @@ describe("compute guess", () => {
             LetterState.MISS,
             LetterState.MISS,
             LetterState.MISS,
+        ]);
+    });
+
+    it('only does one match when two identical letters are present in answer', () => {
+        expect(computeGuess("sweat", "sweet")).toEqual([
+            LetterState.MATCH,
+            LetterState.MATCH,
+            LetterState.MATCH,
+            LetterState.MISS,
+            LetterState.MATCH,
+        ]);
+    });
+
+    it('when 2 letters are present but guess has only 1 of them, only one should be marked present', () => {
+        expect(computeGuess("allol", "colon")).toEqual([
+            LetterState.MISS,
+            LetterState.MISS,
+            LetterState.MATCH,
+            LetterState.MATCH,
+            LetterState.MISS
+        ]);
+    });
+
+    it('when 2 letters are present in guess but answer only has 1 of them', () => {
+        expect(computeGuess("colon", "allol")).toEqual([
+            LetterState.MISS,
+            LetterState.MISS,
+            LetterState.MATCH,
+            LetterState.MATCH,
+            LetterState.MISS
         ]);
     });
 })
