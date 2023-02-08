@@ -1,21 +1,25 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
-import { getRandomWord } from "../utils/helper";
+import { computeGuess, getRandomWord } from "../utils/helper";
+
+type GuessRow = {
+  guess: string;
+  result?: string[];
+};
 
 type AppContextType = {
   appState: AppStateType;
   addGuess: (guess: string) => void;
   startNewGame: () => void;
-  setGuesses: (guesses: string[]) => void;
 };
 
 type AppStateType = {
   answer: string;
-  guesses: string[];
+  rows: GuessRow[];
 };
 
 const initialState: AppStateType = {
   answer: getRandomWord(),
-  guesses: [],
+  rows: [],
 };
 
 export const AppContext = createContext<AppContextType | null>(null);
@@ -26,19 +30,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   function addGuess(guess: string) {
     setAppState((prevState) => ({
       ...prevState,
-      guesses: [...prevState.guesses, guess],
+      rows: [...prevState.rows, { guess, result: computeGuess(guess) }],
     }));
   }
 
   function startNewGame() {
     setAppState(initialState);
-  }
-
-  function setGuesses(guesses: string[]) {
-    setAppState((prevState) => ({
-      ...prevState,
-      guesses: guesses,
-    }));
   }
 
   return (
@@ -47,7 +44,6 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         appState,
         addGuess,
         startNewGame,
-        setGuesses,
       }}
     >
       {children}

@@ -2,15 +2,16 @@ import React, { useState, ChangeEvent } from "react";
 import WordRow from "./component/WordRow";
 import { useAppContext } from "./hooks/useAppContext";
 import { GUESS_LENGTH, LETTER_LENGTH } from "./utils/constants";
+import { computeGuess } from "./utils/helper";
 
 function App() {
   const [guess, setGuess] = useState<string>("");
   const appContext = useAppContext();
 
-  let rows = [...(appContext?.appState.guesses ?? [])];
+  let rows = [...(appContext?.appState.rows ?? [])];
 
   if (rows.length < GUESS_LENGTH) {
-    rows.push(guess);
+    rows.push({ guess, result: computeGuess(guess) });
   }
   const remainingGuessCount = GUESS_LENGTH - rows.length;
   rows = rows.concat(Array(remainingGuessCount).fill(""));
@@ -31,7 +32,7 @@ function App() {
     setGuess("");
   }
 
-  const isGameOver = appContext?.appState.guesses.length === GUESS_LENGTH;
+  const isGameOver = appContext?.appState.rows.length === GUESS_LENGTH;
 
   return (
     <div className="mx-auto w-96 relative">
@@ -50,7 +51,13 @@ function App() {
 
       <main className="grid grid-rows-6 gap-4">
         {rows.map((word, index) => {
-          return <WordRow key={`${word}-${index}`} letters={word} />;
+          return (
+            <WordRow
+              key={`${word}-${index}`}
+              letters={word.guess}
+              result={word.result ?? []}
+            />
+          );
         })}
       </main>
 
