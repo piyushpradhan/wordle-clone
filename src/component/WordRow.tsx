@@ -1,8 +1,7 @@
 import React from "react";
 import { computeGuess } from "../utils/helper";
 import CharacterBox from "./CharacterBox";
-
-const LETTER_LENGTH = 5;
+import { LETTER_LENGTH } from "../utils/constants";
 
 type WordRowProps = {
   letters: string;
@@ -20,7 +19,7 @@ const WordRow = ({ letters = "" }: WordRowProps) => {
     <div className="grid grid-cols-5 gap-4">
       {lettersArray.map((char, index) => (
         <CharacterBox
-          key={`${char}-index`}
+          key={`${char}-${index}`}
           value={char}
           guessState={guessStates[index]}
         />

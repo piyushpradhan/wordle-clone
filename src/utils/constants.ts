@@ -1,3 +1,6 @@
+export const LETTER_LENGTH = 5;
+export const GUESS_LENGTH = 6;
+
 export const LetterState = {
     MISS: "MISS",
     PRESENT: "PRESENT",
