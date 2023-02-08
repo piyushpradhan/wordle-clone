@@ -1,34 +1,31 @@
 import data from '../data/words.json';
+import { LetterState } from './constants';
+
+const word = getRandomWord();
 
 export function getRandomWord() {
     const randomIndex = Math.floor(Math.random() * data.length);
     return data[randomIndex];
 }
 
-export const LetterState = {
-    MISS: "MISS",
-    PRESENT: "PRESENT",
-    MATCH: "MATCH",
-} as const;
-
 export function computeGuess(
     guess: string,
-    answerString: string
+    answer: string = word
 ): string[] {
     const result: string[] = [];
 
-    if (guess.length !== answerString.length) {
+    if (guess.length !== answer.length) {
         return result;
     }
 
-    const answer = answerString.split('');
+    const answerArray = answer.split('');
 
-    const guessAsArray = guess.split('');
+    const guessArray = guess.split('');
 
     const answerLetterCount: Record<string, number> = {};
 
-    guessAsArray.forEach((letter, index) => {
-        const currentAnswerLetter = answer[index];
+    guessArray.forEach((letter, index) => {
+        const currentAnswerLetter = answerArray[index];
 
         answerLetterCount[currentAnswerLetter] = answerLetterCount[
             currentAnswerLetter
@@ -38,7 +35,7 @@ export function computeGuess(
 
         if (currentAnswerLetter === letter) {
             result.push(LetterState.MATCH);
-        } else if (answer.includes(letter)) {
+        } else if (answerArray.includes(letter)) {
             result.push(LetterState.PRESENT);
         } else {
             result.push(LetterState.MISS);
@@ -50,9 +47,9 @@ export function computeGuess(
             return;
         }
 
-        const guessLetter = guessAsArray[resultIndex];
+        const guessLetter = guessArray[resultIndex];
 
-        answer.forEach((currentAnswerLetter, answerIndex) => {
+        answerArray.forEach((currentAnswerLetter, answerIndex) => {
             if (currentAnswerLetter !== guessLetter) {
                 return;
             }
