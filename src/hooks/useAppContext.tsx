@@ -5,6 +5,7 @@ type AppContextType = {
   appState: AppStateType;
   addGuess: (guess: string) => void;
   startNewGame: () => void;
+  setGuesses: (guesses: string[]) => void;
 };
 
 type AppStateType = {
@@ -33,12 +34,20 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setAppState(initialState);
   }
 
+  function setGuesses(guesses: string[]) {
+    setAppState((prevState) => ({
+      ...prevState,
+      guesses: guesses,
+    }));
+  }
+
   return (
     <AppContext.Provider
       value={{
         appState,
         addGuess,
         startNewGame,
+        setGuesses,
       }}
     >
       {children}
