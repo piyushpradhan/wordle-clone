@@ -59,6 +59,7 @@ function App() {
           className="absolute bg-white left-0 right-0 top-1/4 p-6 w-3/4 mx-auto rounded-lg border-2 border-gray-500 text-center"
         >
           Game over!
+          <p>The answer was: {appContext?.appState.answer}</p>
           <button
             className="block border rounded bg-green-500 p-2 mt-4 mx-auto"
             onClick={startNewGame}
