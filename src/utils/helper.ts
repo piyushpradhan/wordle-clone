@@ -1,8 +1,6 @@
 import data from '../data/words.json';
 import { LetterState } from './constants';
 
-const word = getRandomWord();
-
 export function getRandomWord() {
     const randomIndex = Math.floor(Math.random() * data.length);
     return data[randomIndex];
@@ -10,7 +8,7 @@ export function getRandomWord() {
 
 export function computeGuess(
     guess: string,
-    answer: string = word
+    answer: string
 ): string[] {
     const result: string[] = [];
 

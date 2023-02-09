@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
+import Keyboard from "./component/Keyboard";
 import WordRow from "./component/WordRow";
 import { useAppContext } from "./hooks/useAppContext";
 import useGuess from "./hooks/useGuess";
@@ -6,7 +7,7 @@ import { GUESS_LENGTH, LETTER_LENGTH } from "./utils/constants";
 import { computeGuess } from "./utils/helper";
 
 function App() {
-  const [guess, setGuess] = useGuess();
+  const [guess, setGuess, addGuessLetter] = useGuess();
   const appContext = useAppContext();
 
   let rows = [...(appContext?.appState.rows ?? [])];
@@ -33,6 +34,10 @@ function App() {
     setGuess("");
   }
 
+  function onKeyboardClick(key: string) {
+    addGuessLetter(key);
+  }
+
   const isGameOver = appContext?.appState.gameState !== "playing";
 
   return (
@@ -52,6 +57,8 @@ function App() {
           );
         })}
       </main>
+
+      <Keyboard onClick={(key) => addGuessLetter(key)} />
 
       {isGameOver && (
         <div
