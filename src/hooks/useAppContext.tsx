@@ -1,4 +1,5 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
+import { GUESS_LENGTH, LetterState } from "../utils/constants";
 import { computeGuess, getRandomWord } from "../utils/helper";
 
 type GuessRow = {
@@ -15,11 +16,13 @@ type AppContextType = {
 type AppStateType = {
   answer: string;
   rows: GuessRow[];
+  gameState: "playing" | "won" | "lost";
 };
 
 const initialState: AppStateType = {
   answer: getRandomWord(),
   rows: [],
+  gameState: "playing",
 };
 
 export const AppContext = createContext<AppContextType | null>(null);
@@ -28,9 +31,17 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [appState, setAppState] = useState<AppStateType>(initialState);
 
   function addGuess(guess: string) {
+    const result = computeGuess(guess);
+    const didWin = result.every((i) => i === LetterState.MATCH);
+    const rows = [...appState.rows, { guess, result }];
     setAppState((prevState) => ({
       ...prevState,
-      rows: [...prevState.rows, { guess, result: computeGuess(guess) }],
+      rows: rows,
+      gameState: didWin
+        ? "won"
+        : rows.length !== GUESS_LENGTH
+        ? "playing"
+        : "lost",
     }));
   }
 
