@@ -11,6 +11,7 @@ type AppContextType = {
   appState: AppStateType;
   addGuess: (guess: string) => void;
   startNewGame: () => void;
+  toggleMode: () => void;
 };
 
 type AppStateType = {
@@ -18,6 +19,7 @@ type AppStateType = {
   rows: GuessRow[];
   gameState: "playing" | "won" | "lost";
   keyboardState: { [letter: string]: string };
+  mode: "dark" | "light";
 };
 
 const initialState: AppStateType = {
@@ -25,6 +27,7 @@ const initialState: AppStateType = {
   rows: [],
   gameState: "playing",
   keyboardState: {},
+  mode: "dark",
 };
 
 export const AppContext = createContext<AppContextType | null>(null);
@@ -74,12 +77,20 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     }));
   }
 
+  function toggleMode() {
+    setAppState((prevState) => ({
+      ...prevState,
+      mode: prevState.mode === "dark" ? "light" : "dark",
+    }));
+  }
+
   return (
     <AppContext.Provider
       value={{
         appState,
         addGuess,
         startNewGame,
+        toggleMode,
       }}
     >
       {children}
