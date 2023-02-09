@@ -15,7 +15,7 @@ const useGuess = (): [
     setGuess((currentGuess) => {
       const newGuess =
         letter.length === 1 && currentGuess.length !== LETTER_LENGTH
-          ? currentGuess + letter
+          ? currentGuess + letter.toLowerCase()
           : currentGuess;
 
       switch (letter) {
@@ -33,7 +33,7 @@ const useGuess = (): [
   }
 
   function onKeyDown(e: KeyboardEvent) {
-    if (appContext?.appState.gameState === "playing") {
+    if (appContext?.appState.gameState === "playing" && e.key.match(/[a-z]/i)) {
       const letter = e.key;
       addGuessLetter(letter);
     }

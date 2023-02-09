@@ -69,6 +69,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   function startNewGame() {
     setAppState((prevState) => ({
       ...initialState,
+      answer: getRandomWord(),
       keyboardState: {},
     }));
   }

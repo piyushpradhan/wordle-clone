@@ -46,7 +46,7 @@ function App() {
         <h1 className="text-4xl text-center">Wordle clone</h1>
       </header>
 
-      <main className="grid grid-rows-6 gap-4">
+      <main className="grid grid-rows-6 gap-4 py-4">
         {rows.map((word, index) => {
           return (
             <WordRow

@@ -68,5 +68,5 @@ export function computeGuess(
 }
 
 export function isValidWord(word: string): boolean {
-    return data.includes(word);
+    return data.includes(word.toLowerCase());
 }
