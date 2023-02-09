@@ -14,7 +14,7 @@ const WordRow = ({ letters = "", result }: WordRowProps) => {
     .concat(Array(lettersRemaining).fill(""));
 
   return (
-    <div className="grid grid-cols-5 gap-4">
+    <div className="grid grid-cols-5 gap-2 md:gap-4">
       {lettersArray.map((char, index) => (
         <CharacterBox
           key={`${char}-${index}`}

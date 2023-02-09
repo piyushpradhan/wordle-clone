@@ -10,7 +10,7 @@ const CharacterBox = ({ value, guessState }: CharacterBoxProps) => {
   const stateStyle = characterStateStyles[guessState];
   return (
     <span
-      className={`inline-block border-2 text-2xl border-gray-500 p-4 text-center uppercase font-bold before:inline-block before:content=['_'] aspect-square ${stateStyle}`}
+      className={`border md:border-2 text-2xl border-gray-500 uppercase font-bold aspect-square flex justify-center items-center ${stateStyle}`}
     >
       {value}
     </span>

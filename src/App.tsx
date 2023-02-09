@@ -41,12 +41,14 @@ function App() {
   const isGameOver = appContext?.appState.gameState !== "playing";
 
   return (
-    <div className="mx-auto w-96 relative">
+    <div className="mx-auto w-64 sm:w-80 md:w-96 relative my-4">
       <header className="border-b border-black/40 pb-2 my-2">
-        <h1 className="text-4xl text-center">Wordle clone</h1>
+        <h1 className="py-2 md:py-4 text-3xl md:text-4xl font-bold uppercase text-center">
+          Wordle
+        </h1>
       </header>
 
-      <main className="grid grid-rows-6 gap-4 py-4">
+      <main className="grid grid-rows-6 gap-2 md:gap-4 py-4">
         {rows.map((word, index) => {
           return (
             <WordRow
