@@ -17,6 +17,7 @@ const Keyboard = ({ onClick }: KeyboardProps) => {
       returnProps = "Backspace";
     }
 
+    e.currentTarget.blur();
     onClick(returnProps);
   };
 

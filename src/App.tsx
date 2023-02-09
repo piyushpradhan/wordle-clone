@@ -58,7 +58,7 @@ function App() {
         })}
       </main>
 
-      <Keyboard onClick={(key) => addGuessLetter(key)} />
+      <Keyboard onClick={onKeyboardClick} />
 
       {isGameOver && (
         <div
